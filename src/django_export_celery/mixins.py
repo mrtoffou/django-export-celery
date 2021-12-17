@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
+from django.conf import settings
 
 from import_export.admin import ExportMixin
 from . import statuses, tasks, forms, models
@@ -64,19 +65,34 @@ class ExportCeleryMixin(ExportMixin):
             )
             job.save()
 
-            tasks.execute_export_job.delay(
-                job.id,
-                app_label,
-                model_name,
-                resource,
-                send_email,
-                request.user.email,
-                site,
-                content_type,
-                filename,
-                list(ids),
-                send_celery_data=self.send_celery_data,
-            )
+            if settings.CELERY_BROKER_URL:
+                tasks.execute_export_job.delay(
+                    job.id,
+                    app_label,
+                    model_name,
+                    resource,
+                    send_email,
+                    request.user.email,
+                    site,
+                    content_type,
+                    filename,
+                    list(ids),
+                    send_celery_data=self.send_celery_data,
+                )
+            else:
+                tasks.execute_export_job(
+                    job.id,
+                    app_label,
+                    model_name,
+                    resource,
+                    send_email,
+                    request.user.email,
+                    site,
+                    content_type,
+                    filename,
+                    list(ids),
+                    send_celery_data=self.send_celery_data,
+                )
 
             messages.set_level(request, messages.INFO)
             if send_email and request.user.email:
