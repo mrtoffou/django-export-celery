@@ -3,6 +3,7 @@ import os
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from django.db import models
+from django.conf import settings
 from django.utils.safestring import mark_safe
 from author.decorators import with_author
 
@@ -11,7 +12,7 @@ from . import statuses
 
 @with_author
 class ExportJob(models.Model):
-    file = models.FileField(upload_to='django-export-celery-jobs', blank=False, null=False, max_length=255)
+    file = models.FileField(upload_to=settings.DJANGO_EXPORT_CELERY_UPLOAD_TO, blank=False, null=False, max_length=255)
     status = models.CharField(max_length=25, null=True, default=None, choices=zip(statuses.STATUSES, statuses.STATUSES))
     model = models.CharField(max_length=255, default='')
     resource = models.CharField(max_length=255, default='')

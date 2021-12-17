@@ -40,8 +40,10 @@ MIDDLEWARE = (
     ...
     'author.middlewares.AuthorDefaultBackendMiddleware',
 )
-```
 
+# Optionally you can overwrite the default file upload location
+DJANGO_EXPORT_CELERY_UPLOAD_TO = 'export_job_file_upload_location'
+```
 
 How to use
 ===
