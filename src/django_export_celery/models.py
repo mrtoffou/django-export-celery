@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from author.decorators import with_author
 
-import statuses
+from . import statuses
 
 
 @with_author

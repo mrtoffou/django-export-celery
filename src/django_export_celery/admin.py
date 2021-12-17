@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-import models
+from . import models
 from .urls import urlpatterns
 
 
