@@ -8,10 +8,7 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 
 from import_export.admin import ExportMixin
-import statuses
-import tasks
-import forms
-import models
+from . import statuses, tasks, forms, models
 
 
 def is_jsonable(val):
