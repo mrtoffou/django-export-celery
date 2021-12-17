@@ -38,7 +38,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE = (
     ...
-    'author.middlewares.AuthorDefaultBackendMiddleware,
+    'author.middlewares.AuthorDefaultBackendMiddleware',
 )
 ```
 
