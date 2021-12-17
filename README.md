@@ -46,53 +46,64 @@ MIDDLEWARE = (
 How to use
 ===
 
-1. Setup `resources`
-```python
-# apps/resources.py
-from .models import Animal
-from import_export import resources
-
-
-class DogResource(resources.ModelResource):
-    class Meta:
-        model = Animal
-```
-
-2. Setup export resources to `model`
+1. Setup `model` and `resources`
 ```python
 # apps/models.py
 from django.db import models
+from import_export.resources import ModelResource
 
 
-class Animal(models.Model):
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
 
     @staticmethod
     def get_export_resources():
-        from .resources import DogResource
         return {
-            'dog_rsc': ('Dog', DogResource),
+            'rsc1': ('Question', QuestionResource),
         }
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+
+class QuestionResource(ModelResource):
+    class Meta:
+        model = Question
+
 ```
 
-3. Add `ExportCeleryMixin` to `admin.py`
+2. Add `ExportCeleryMixin` to admin view in `admin.py`
 ```python
 # apps/admin.py
 from django.contrib import admin
-from .models import Animal
+from .models import Question, Choice
+from import_export.admin import ImportExportMixin
 from django_export_celery.mixins import ExportCeleryMixin
 
 
-@admin.register(Animal)
-class AnimalAdmin(ExportCeleryMixin, admin.ModelAdmin):
+@admin.register(Question)
+class QuestionAdmin(ExportCeleryMixin, admin.ModelAdmin):
     list_display = (
-        'name',
+        'question_text',
+        'pub_date',
     )
+
+# also supports django-import-export admin mixins like so
+@admin.register(Choice)
+class ChoiceAdmin(ImportExportMixin, ExportCeleryMixin, admin.ModelAdmin):
+    list_display = (
+        'question',
+        'choice_text',
+        'votes',
+    )
+
 ```
 
+3. Hit `export` and fill out form
 
 Demo App
 ===
@@ -110,8 +121,7 @@ python manage.py runserver 8000
 Known Issues
 ===
 * Does not respect ordering when exporting
-* Export to certain file types will break 
-* Admin views that inherit mixins from `import_export.mixins` with `django_export_celery.mixins` may cause issues
+* Export to certain file types will break
 
 
 Issue Tracker
