@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.http import require_http_methods
+from django.contrib import messages
 
 from .models import ExportJob
 
@@ -19,5 +20,6 @@ def download_file(request, *args, **kwargs):
             response['Content-Disposition'] = 'attachment; filename=%s' % filename
 
             return response
-    except ExportJob.DoesNotExist:
+    except (ExportJob.DoesNotExist, FileNotFoundError):
+        messages.warning(request, 'File cannot be found.')
         return redirect('/admin/django_export_celery/exportjob/')

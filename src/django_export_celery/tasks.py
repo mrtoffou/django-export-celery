@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from celery import shared_task
 from import_export.formats.base_formats import DEFAULT_FORMATS
 
-import statuses
+from . import statuses
 from .models import ExportJob
 
 
