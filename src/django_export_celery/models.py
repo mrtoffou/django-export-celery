@@ -19,6 +19,9 @@ class ExportJob(models.Model):
     started_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(default=None, null=True, blank=True)
 
+    class Meta:
+        verbose_name_plural = 'Export Jobs'
+
     def file_size(self):
         try:
             return f'{self.file.size/1000} kB' if self.file else ''
