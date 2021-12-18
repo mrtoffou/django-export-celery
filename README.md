@@ -41,8 +41,13 @@ MIDDLEWARE = (
     'author.middlewares.AuthorDefaultBackendMiddleware',
 )
 
-# Optionally you can overwrite the default file upload location
-DJANGO_EXPORT_CELERY_UPLOAD_TO = 'export_job_file_upload_location'
+# Optionally, you can overwrite the default file upload location
+# Defaults to 'django-export-celery-jobs/' if not set
+DJANGO_EXPORT_CELERY_UPLOAD_TO = 'uploads/'
+
+# Optionally, sending emails can be enabled in form 
+# Defaults to False if not set
+DJANGO_EXPORT_CELERY_ENABLE_EMAIL = True
 ```
 
 3. Setup `model` and `resources`
@@ -106,13 +111,16 @@ class ChoiceAdmin(ImportExportMixin, ExportCeleryMixin, admin.ModelAdmin):
 How to use
 ===
 1. Click `EXPORT` button in upper right in model view
+
 ![image-1](screenshots/demo-image-1.png)
 
 2. Select export `Format` and click `SUBMIT`
+
 ![image-2](screenshots/demo-image-2.png)
 
-3. Export jobs and their statuses can be found in `Export Jobs`
-![image-3](screenshots/demo-image-3.png)
+3. Export jobs can be found in the `Export Jobs` app along with job status and file link
+
+![image-3](screenshots/demo-image-3.png) 
 
 
 Demo App
