@@ -3,6 +3,9 @@ Overview
 
 django-export-celery is a Django application that enables long processing exports using `celery` and `django-import-export`
 
+![image-1](screenshots/demo-image-1.png)
+
+![image-1](screenshots/demo-image-2.png)
 
 Dependencies
 ===
@@ -120,10 +123,16 @@ python manage.py createsuperuser
 python manage.py runserver 8000
 ```
 
+TODO: dummy data setup
+
+TODO: Docker setup
+
 Known Issues
 ===
+A list of known issues to be patched in the future
+
 * Does not respect ordering when exporting
-* Export to certain file types will break
+* File format `ods` is not supported
 
 
 Issue Tracker
