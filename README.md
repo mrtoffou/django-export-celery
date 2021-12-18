@@ -112,15 +112,15 @@ How to use
 ===
 1. Click `EXPORT` button in upper right in model view
 
-![image-1](screenshots/demo-image-1.png)
+![image-1](https://raw.githubusercontent.com/mrtoffou/django-export-celery/main/screenshots/demo-image-1.png)
 
 2. Select export `Format` and click `SUBMIT`
 
-![image-2](screenshots/demo-image-2.png)
+![image-2](https://raw.githubusercontent.com/mrtoffou/django-export-celery/main/screenshots/demo-image-2.png)
 
 3. Export jobs can be found in the `Export Jobs` app along with job status and file link
 
-![image-3](screenshots/demo-image-3.png) 
+![image-3](https://raw.githubusercontent.com/mrtoffou/django-export-celery/main/screenshots/demo-image-3.png) 
 
 
 Demo App
