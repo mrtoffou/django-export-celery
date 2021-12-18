@@ -10,10 +10,10 @@ Python 3.6+
 
 Packages
 ```text
-Django==3.2
-celery==5.2.0
-django-import-export==2.3.0
-django-author==1.0.2
+Django>=3.1
+celery>=5.0.0
+django-import-export>=2.2.0
+django-author>=1.0.2
 ```
 
 Installation and Configuration
