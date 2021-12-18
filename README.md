@@ -3,13 +3,10 @@ Overview
 
 django-export-celery is a Django application that enables long processing exports using `celery` and `django-import-export`
 
-![image-1](screenshots/demo-image-1.png)
-
-![image-1](screenshots/demo-image-2.png)
 
 Dependencies
 ===
-Python (3.7, 3.8, 3.9)
+Python 3.6+
 
 Packages
 ```text
@@ -24,12 +21,12 @@ Installation and Configuration
 Celery must be setup before starting. \
 Please refer to [Using Celery with Django](https://docs.celeryproject.org/en/v5.2.0/django/first-steps-with-django.html) for more information.
 
-Install with `pip`
+1. Install with `pip`
 ```
 pip install django-export-celery
 ```
 
-Add apps to `INSTALLED_APPS` and `MIDDLEWARE` to project settings.
+2. Add apps to `INSTALLED_APPS` and `MIDDLEWARE` to project settings.
 ```python
 # settings.py
 INSTALLED_APPS = (
@@ -48,10 +45,7 @@ MIDDLEWARE = (
 DJANGO_EXPORT_CELERY_UPLOAD_TO = 'export_job_file_upload_location'
 ```
 
-How to use
-===
-
-1. Setup `model` and `resources`
+3. Setup `model` and `resources`
 ```python
 # apps/models.py
 from django.db import models
@@ -81,7 +75,7 @@ class QuestionResource(ModelResource):
 
 ```
 
-2. Add `ExportCeleryMixin` to admin view in `admin.py`
+4. Add `ExportCeleryMixin` to admin view in `admin.py`
 ```python
 # apps/admin.py
 from django.contrib import admin
@@ -108,7 +102,18 @@ class ChoiceAdmin(ImportExportMixin, ExportCeleryMixin, admin.ModelAdmin):
 
 ```
 
-3. Hit `export` and fill out form
+
+How to use
+===
+1. Click `EXPORT` button in upper right in model view
+![image-1](screenshots/demo-image-1.png)
+
+2. Select export `Format` and click `SUBMIT`
+![image-2](screenshots/demo-image-2.png)
+
+3. Export jobs and their statuses can be found in `Export Jobs`
+![image-3](screenshots/demo-image-3.png)
+
 
 Demo App
 ===
