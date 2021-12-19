@@ -65,34 +65,27 @@ class ExportCeleryMixin(ExportMixin):
             )
             job.save()
 
-            if settings.CELERY_BROKER_URL:
-                tasks.execute_export_job.delay(
-                    job.id,
-                    app_label,
-                    model_name,
-                    resource,
-                    send_email,
-                    request.user.email,
-                    site,
-                    content_type,
-                    filename,
-                    list(ids),
-                    send_celery_data=self.send_celery_data,
-                )
-            else:
-                tasks.execute_export_job(
-                    job.id,
-                    app_label,
-                    model_name,
-                    resource,
-                    send_email,
-                    request.user.email,
-                    site,
-                    content_type,
-                    filename,
-                    list(ids),
-                    send_celery_data=self.send_celery_data,
-                )
+            if not hasattr(settings, 'CELERY_BROKER_URL'):
+                job.status = statuses.FAILURE
+                job.save()
+
+                messages.set_level(request, messages.WARNING)
+                messages.warning(request, "CELERY_BROKER_URL is not defined")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+            tasks.execute_export_job.delay(
+                job.id,
+                app_label,
+                model_name,
+                resource,
+                send_email,
+                request.user.email,
+                site,
+                content_type,
+                filename,
+                list(ids),
+                send_celery_data=self.send_celery_data,
+            )
 
             messages.set_level(request, messages.INFO)
             if send_email and request.user.email:
