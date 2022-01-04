@@ -5,19 +5,21 @@ from django.db.models.signals import post_delete
 from django.db import models
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from author.decorators import with_author
 
 from . import statuses
 
 
-@with_author
 class ExportJob(models.Model):
-    file = models.FileField(upload_to=settings.DJANGO_EXPORT_CELERY_UPLOAD_TO, blank=False, null=False, max_length=255)
+    file = models.FileField(upload_to='django-export-celery-jobs/', blank=False, null=False, max_length=255)
     status = models.CharField(max_length=25, null=True, default=None, choices=zip(statuses.STATUSES, statuses.STATUSES))
     model = models.CharField(max_length=255, default='')
     resource = models.CharField(max_length=255, default='')
     started_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(default=None, null=True, blank=True)
+    author = models.ForeignKey(
+        blank=True, null=True, on_delete=models.deletion.SET_NULL, related_name='exportjob_create',
+        to=settings.AUTH_USER_MODEL, verbose_name='author'
+    )
 
     class Meta:
         verbose_name_plural = 'Export Jobs'

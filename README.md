@@ -13,7 +13,6 @@ Packages
 Django>=3.1
 celery>=5.0.0
 django-import-export>=2.2.0
-django-author>=1.0.2
 ```
 
 Installation and Configuration
@@ -26,28 +25,18 @@ Please refer to [Using Celery with Django](https://docs.celeryproject.org/en/v5.
 pip install django-export-celery
 ```
 
-2. Add apps to `INSTALLED_APPS` and `MIDDLEWARE` to project settings.
+2. Add apps to `INSTALLED_APPS` to project settings.
 ```python
 # settings.py
 INSTALLED_APPS = (
     ...
     'import_export',
-    'author',
     'django_export_celery',
 )
 
-MIDDLEWARE = (
-    ...
-    'author.middlewares.AuthorDefaultBackendMiddleware',
-)
-
-# Optionally, you can overwrite the default file upload location
-# Defaults to 'django-export-celery-jobs/' if not set
-DJANGO_EXPORT_CELERY_UPLOAD_TO = 'uploads/'
-
-# Optionally, sending emails can be enabled in form 
-# Defaults to False if not set
-DJANGO_EXPORT_CELERY_ENABLE_EMAIL = True
+# Optionally, sending emails is enabled by default on completed export
+# Disable it by setting to False
+DJANGO_EXPORT_CELERY_ENABLE_EMAIL = False
 ```
 
 3. Setup `model` and `resources`
@@ -158,4 +147,3 @@ References
 * https://www.djangoproject.com/
 * https://github.com/django-import-export/django-import-export
 * https://docs.celeryproject.org/en/stable/getting-started/introduction.html
-* https://github.com/lambdalisue/django-author

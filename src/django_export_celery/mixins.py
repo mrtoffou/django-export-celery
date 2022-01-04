@@ -57,18 +57,16 @@ class ExportCeleryMixin(ExportMixin):
             model_name = self.model._meta.model_name
             app_label = self.model._meta.app_label
             site = "{}://{}".format(request.scheme, get_current_site(request))
+            # resource_label = self.model.get_export_resources()[resource][0]
 
-            job = models.ExportJob(
+            job = models.ExportJob.objects.create(
                 status=statuses.STARTED,
                 resource=self.model.get_export_resources()[resource][0],
                 model=model_name,
+                author=request.user,
             )
-            job.save()
 
             if not hasattr(settings, 'CELERY_BROKER_URL'):
-                job.status = statuses.FAILURE
-                job.save()
-
                 messages.set_level(request, messages.WARNING)
                 messages.warning(request, "CELERY_BROKER_URL is not defined")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

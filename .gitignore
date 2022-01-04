@@ -132,3 +132,4 @@ dmypy.json
 
 dist/
 project/uploads
+project/django-export-celery-jobs/
