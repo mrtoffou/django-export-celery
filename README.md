@@ -25,7 +25,7 @@ Please refer to [Using Celery with Django](https://docs.celeryproject.org/en/v5.
 pip install django-export-celery
 ```
 
-2. Add apps to `INSTALLED_APPS` and `MIDDLEWARE` to project settings.
+2. Add apps to `INSTALLED_APPS` to project settings.
 ```python
 # settings.py
 INSTALLED_APPS = (
