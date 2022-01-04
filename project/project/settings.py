@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'author',
-    'src.django_export_celery',
+    'django_export_celery',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +93,3 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-
-# optional
-DJANGO_EXPORT_CELERY_UPLOAD_TO = 'uploads/'
