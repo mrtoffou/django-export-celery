@@ -2,3 +2,4 @@ Django==3.1
 celery==5.0.0
 django-import-export==2.3.0
 django-author==1.0.2
+django-export-celery==0.2.3
