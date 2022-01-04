@@ -19,9 +19,13 @@ class Migration(migrations.Migration):
             name='file',
             field=models.FileField(max_length=255, upload_to='django-export-celery-jobs/'),
         ),
+        migrations.RemoveField(
+            model_name='exportjob',
+            name='updated_by',
+        ),
         migrations.AlterField(
             model_name='exportjob',
             name='status',
-            field=models.CharField(choices=[('PENDING', 'PENDING'), ('SUCCESS', 'SUCCESS'), ('STARTED', 'STARTED'), ('FAILURE', 'FAILURE')], default=None, max_length=25, null=True),
+            field=models.CharField(default=None, max_length=25, null=True),
         ),
     ]
