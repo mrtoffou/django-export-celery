@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 
 class ExportJob(models.Model):
     file = models.FileField(upload_to='django-export-celery-jobs/', blank=False, null=False, max_length=255)
-    status = models.CharField(max_length=25, null=True, default='')
+    status = models.CharField(max_length=25, null=True, default=None)
     model = models.CharField(max_length=255, default='')
     resource = models.CharField(max_length=255, default='')
     started_on = models.DateTimeField(auto_now_add=True)
