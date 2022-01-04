@@ -63,7 +63,7 @@ class ExportCeleryMixin(ExportMixin):
                 status=statuses.STARTED,
                 resource=self.model.get_export_resources()[resource][0],
                 model=model_name,
-                author=request.user.id,
+                author=request.user,
             )
 
             if not hasattr(settings, 'CELERY_BROKER_URL'):
