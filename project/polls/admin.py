@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Question, Choice
 from import_export.admin import ImportExportMixin
-from src.django_export_celery.mixins import ExportCeleryMixin
+from django_export_celery.mixins import ExportCeleryMixin
 
 
 @admin.register(Question)
